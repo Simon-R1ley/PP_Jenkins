@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Jenkins8000</short>
+  <description>Jenkins is an open source automation server written in Java.</description>
+  <port protocol="tcp" port="8000"/>
+  <port protocol="tcp" port="8080"/>
+  <port protocol="tcp" port="22"/>
+</service>

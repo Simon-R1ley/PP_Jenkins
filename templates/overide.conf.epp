@@ -1,0 +1,6 @@
+# Jenkins Overide config 
+# Port change only - Place file in the following location /etc/systemd/system/jenkins.service.d/override.conf
+[Service]
+Environment="JENKINS_PORT=<%= $jenkinsport %>"
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
