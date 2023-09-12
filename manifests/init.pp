@@ -6,7 +6,7 @@
 #   include jenkins
 class jenkins (
   String $jenkinsport = '8080',
-){
+) {
 # Notification for jenkins linux 
   notify { 'jenkinslinux':
   }
