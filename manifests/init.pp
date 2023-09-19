@@ -58,16 +58,17 @@ class jenkins (
     mode    => '0600',
     owner   => 'root',
     notify  => Service['firewalld'],
+    alias   => 'jenkinsport',
   }
 
   exec { 'firewall-cmd --reload':
     command     => ['firewall-cmd --reload'],
-    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
+#    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
   }
 
   exec { 'firewall-cmd --zone=public --add-service=jenkins --permanent':
-    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
+#    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
     notify      => Service['firewalld'],
   }
