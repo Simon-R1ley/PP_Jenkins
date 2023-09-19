@@ -1,7 +1,7 @@
 # @summary A short summary of the purpose of this class
-#
+# https://www.youtube.com/watch?v=1bNscYDeH9s - general infor for roles and profiles!
 # A description of what this class does
-#
+# @param jenkinsport information
 # @example
 #   include jenkins
 class jenkins (
