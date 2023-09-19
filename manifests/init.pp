@@ -66,12 +66,15 @@ class jenkins (
   # editing the fileserverconfig = /etc/puppetlabs/puppet/fileserver.conf on the PE master.
   # For more information see: https://www.puppet.com/docs/puppet/6/config_file_fileserver.html
   # 
+  # Areas of improvement - 1) use content for file contents - 2) Usage of varibles for port
+  #
   file { '/etc/firewalld/services/jenkins.xml':
     ensure  => file,
-    source  => 'puppet:///modules/jenkins/jenkins.xml',
+    # source  => 'puppet:///modules/jenkins/jenkins.xml',
+    content => epp('jenkins/jenkins.xml.epp', { 'jenkinsport' => $jenkinsport }),
     mode    => '0600',
     owner   => 'root',
-    require => Service['firewalld'],
+    notify  => Service['firewalld'],
   }
 
   # Notify of PW at location  use varible!
