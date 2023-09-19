@@ -51,11 +51,11 @@ class jenkins (
 
   package { 'firewalld':
     ensure => 'installed',
-    before => File['/usr/lib/firewalld/services/jenkins.xml'],
+    before => File['/etc/firewalld/services/jenkins.xml'],
   }
 
   service { 'firewalld':
-    ensure  => 'stopped',
+    ensure  => 'running',
     enable  => true,
     require => Package['firewalld'],
   }
@@ -66,7 +66,7 @@ class jenkins (
   # editing the fileserverconfig = /etc/puppetlabs/puppet/fileserver.conf on the PE master.
   # For more information see: https://www.puppet.com/docs/puppet/6/config_file_fileserver.html
   # 
-  file { '/usr/lib/firewalld/services/jenkins.xml':
+  file { '/etc/firewalld/services/jenkins.xml':
     ensure  => file,
     source  => 'puppet:///modules/jenkins/jenkins.xml',
     mode    => '0600',
