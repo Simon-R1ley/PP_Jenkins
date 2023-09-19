@@ -61,13 +61,13 @@ class jenkins (
     alias   => 'jenkinsport',
   }
 
-  exec { 'firewall-cmd --reload':
+  exec { '/bin/firewall-cmd --reload':
     command     => ['firewall-cmd --reload'],
 #    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
   }
 
-  exec { 'firewall-cmd --zone=public --add-service=jenkins --permanent':
+  exec { '/bin/firewall-cmd --zone=public --add-service=jenkins --permanent':
 #    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
     notify      => Service['firewalld'],
