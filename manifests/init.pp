@@ -67,7 +67,7 @@ class jenkins (
   }
 
   exec { 'firewall-cmd --zone=public --add-service=jenkins --permanent':
-    subscribe   => ['/etc/firewalld/services/jenkins.xml'],
+    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
     notify      => Service['firewalld'],
   }
