@@ -62,7 +62,7 @@ class jenkins (
   }
 
   exec { '/bin/firewall-cmd --reload':
-    command     => ['firewall-cmd --reload'],
+#    command     => ['firewall-cmd --reload'],
 #    subscribe   => File['/etc/firewalld/services/jenkins.xml'],
     refreshonly => true,
   }
