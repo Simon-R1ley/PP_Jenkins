@@ -7,7 +7,7 @@
 #   include jenkins
 #
 class jenkins (
-  #String $jenkinsport = '8080',
+  String $jenkinsport = '8080',
 ) {
   # Installs yum and open jdk 11, ensures the latest - Secure by design as Java 11 is updated
   # but will maintain the security patches
