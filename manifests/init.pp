@@ -7,7 +7,7 @@
 #   include jenkins
 #
 class jenkins (
-  String $jenkinsport = epp('jenkins/overide.conf.epp', { 'jenkinsport' => $jenkinsport }), # is this line needed? #
+  String $jenkinsport = '8080', # Default 
 ) {
   # Installs yum and open jdk 11, ensures the latest - Secure by design as Java 11 is updated
   # but will maintain the security patches
@@ -47,7 +47,6 @@ class jenkins (
   package { 'firewalld':
     ensure => 'installed',
     before => File['/etc/firewalld/services/jenkins.xml'],
-    notify => Exec['/bin/firewall-cmd --reload'],
   }
 
   file { '/etc/firewalld/services/jenkins.xml':
@@ -55,17 +54,22 @@ class jenkins (
     content => epp('jenkins/jenkins.xml.epp', { 'jenkinsport' => $jenkinsport }),
     mode    => '0600',
     owner   => 'root',
-    notify  => Service['firewalld'],
+    notify  => [
+      Service['firewalld'],
+      Exec['/bin/firewall-cmd --reload']
+    ],
     alias   => 'jenkinsport',
   }
 
   exec { '/bin/firewall-cmd --reload':
     refreshonly => true,
-    notify      => Exec['/bin/firewall-cmd --zone=public --add-service=jenkins --permanent'],
+    notify      => Exec['firewall-cmd --zone=public --add-service=jenkins --permanent'],
+    path        => ['/usr/bin', '/usr/sbin', 'man'],
   }
 
-  exec { '/bin/firewall-cmd --zone=public --add-service=jenkins --permanent':
+  exec { 'firewall-cmd --zone=public --add-service=jenkins --permanent':
     refreshonly => true,
+    path        => ['/usr/bin', '/usr/sbin', '/sbin'],
   }
 
   service { 'firewalld':
